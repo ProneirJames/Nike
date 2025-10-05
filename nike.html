@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Page title</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Poppins:wght@300;400;700&display=swap">
+</head>
+<style>
+    :root{
+        --shoeColor: #d26835;
+        --text-margin: 20px;
+    }
+    *{
+        margin:0;
+        padding: 0;
+    }
+    body{
+        font-family: Roboto, "sans-serif";
+        font-weight: 400;
+        user-select: none;
+    }
+    
+    
+       .splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .splash-screen.hide {
+            animation: futuristicExit 1.5s ease-in-out forwards;
+        }
+
+        @keyframes futuristicExit {
+            0% {
+                opacity: 1;
+                transform: scale(1);
+                filter: blur(0px);
+            }
+            30% {
+                transform: scale(1.1);
+            }
+            60% {
+                opacity: 0.5;
+                filter: blur(5px);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(2);
+                filter: blur(20px);
+                clip-path: polygon(50% 0%, 50% 0%, 50% 100%, 50% 100%);
+            }
+        }
+
+        .content {
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .grid-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+            opacity: 0.3;
+        }
+
+        @keyframes gridMove {
+            0% { transform: perspective(500px) rotateX(60deg) translateY(0); }
+            100% { transform: perspective(500px) rotateX(60deg) translateY(50px); }
+        }
+
+        .message {
+            font-size: 2rem;
+            font-weight: 300;
+            letter-spacing: 3px;
+            margin-bottom: 3rem;
+            opacity: 0;
+            animation: textReveal 1s ease-out 0.5s forwards;
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+        }
+
+        @keyframes textReveal {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+                filter: blur(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+                filter: blur(0);
+            }
+        }
+
+        .credits {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .credit-line {
+            font-size: 1.2rem;
+            opacity: 0;
+            transform: translateX(-100px);
+            animation: slideInCredit 0.8s ease-out forwards;
+        }
+
+        .credit-line:nth-child(1) {
+            animation-delay: 1s;
+        }
+
+        .credit-line:nth-child(2) {
+            animation-delay: 1.3s;
+        }
+
+        .credit-line:nth-child(3) {
+            animation-delay: 1.6s;
+        }
+
+        @keyframes slideInCredit {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .label {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .value {
+            color: #00ffff;
+            font-weight: 600;
+            font-size: 1.5rem;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.7);
+            margin-top: 0.3rem;
+        }
+
+        .loading-bar {
+            position: absolute;
+            bottom: 0px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .loading-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #00ffff, #0080ff, #00ffff);
+            background-size: 200% 100%;
+            animation: loadProgress 3s ease-in-out forwards, shimmer 1.5s linear infinite;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
+        }
+
+        @keyframes loadProgress {
+            from { width: 0%; }
+            to { width: 100%; }
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: rgba(0, 255, 255, 0.8);
+            border-radius: 50%;
+            animation: particleFloat 3s linear infinite;
+            box-shadow: 0 0 5px rgba(0, 255, 255, 0.8);
+        }
+
+        @keyframes particleFloat {
+            0% {
+                transform: translateY(100vh) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .message {
+                font-size: 1.3rem;
+            }
+            
+            .value {
+                font-size: 1.2rem;
+            }
+            
+            .loading-bar {
+                width: 80%;
+            }
+        }
+        
+        
+    #homeSlide1{
+        height: 100vh;
+        max-height: 750px;     
+        width: 100vw;        
+        display: flex;
+        flex-flow: row nowrap;
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity 0.5s, visibility 0.5s;
+    }
+    #homeSlide1.active{
+        visibility: visible;
+        opacity: 1;
+    }
+    #sideStyleBar{
+        width: clamp(50px, 14vw, 100px);      
+        height: 100%;
+        box-sizing: border-box;
+        background: var(--shoeColor);
+        transition: background 0.5s;
+        padding: clamp(4px, 4vw, 20px);    
+        position: relative;         
+    }
+    #sideStyleBar span:nth-child(1){
+        position: absolute;
+        top: 5%;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    #sideStyleBar span:nth-child(2){
+        display: inline-block;
+        height: 86%;              
+        position: absolute;
+        top: 10%;
+        left: 50%;
+        transform: translateX(-50%);
+        writing-mode: sideways-lr;
+        text-align: right;
+        letter-spacing: 24px;
+        font-size: clamp(10px, 3vw, 18px);        
+    }
+    #mainStyleBox{
+        background: linear-gradient(to bottom, #000000, #444444);
+        width: 100%;
+        position: relative;
+    }
+    #remPage{
+        position: absolute;
+        top:0:
+        left:0;
+        width: 100%;
+        height: 100%;
+        background: black;
+        color: white;
+        padding: 40px 20px;
+        box-sizing: border-box;
+        text-align: center;
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity 0.5s, visibility 0.5s;
+    }
+    #remPage.active{
+        visibility: visible;
+        opacity: 1;
+    }
+    nav{
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-between;
+        padding: clamp(7px, 5vw, 20px) 0;
+        width: clamp(270px, 40vw, 390px);
+        margin: auto;
+    }
+    nav a{
+        text-decoration: none;
+        color: white;
+        font-size: 10px;
+        position: relative;
+        transition: color 0.5s;
+    }
+    nav a.active{
+        color: var(--shoeColor);
+    }
+    nav a::after{
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left:0;
+        height: 10%;
+        width: 100%;
+        background: var(--shoeColor);
+        width: 0;
+        transition: width 0.5s, background 0.5s;
+    }
+    nav a:hover::after{
+        width: 100%;
+    }
+    #shoePreviewBox{
+        display: flex;
+        flex-flow: row wrap;               
+        overflow: hidden;
+    }
+    #aboutShoeBox{
+        max-width: 500px;
+        padding-left: clamp(25px, 6vw, 40px);
+    }
+    .shoeLine.preview{
+        font-size: clamp(50px, 12vw, 120px);
+        color: white;
+        line-height: 0.8;
+        margin-top: 50px;
+        text-transform: Uppercase;
+        white-space: nowrap;
+        
+    }
+    .shoeName.preview, #shoePrice{
+        font-size: clamp(10px, 3vw, 20px);
+        color: white;
+        font-family: Poppins, "sans-serif";
+        transform: skewX(-5deg);
+        letter-spacing: 1px;
+    } 
+    .shoeName.preview{
+        text-transform: uppercase;
+    }
+    #shoePrice{
+        margin: var(--text-margin) 0;
+    }
+    #aboutShoe{
+        font-size: clamp(7px, 2vw, 12px);
+        color: white;
+        font-family: Poppins, "sans-serif";      
+        margin-bottom: var(--text-margin);
+        max-width: 75%;  
+    }
+    #addCartButton{
+        display: inline-block;
+        background: var(--shoeColor);
+        padding: clamp(6px, 1.5vw, 12px);
+        border-radius: 30px;
+        color: black;
+        transform: skewX(-5deg);
+        font-size: clamp(8px, 2vw, 15px);
+        border: solid 1px var(--shoeColor);
+        transition: background 0.5s, color 0.5s, border-color 0.5s;
+    }
+    #addCartButton:hover{
+        background: transparent;
+        color: var(--shoeColor);
+        
+    }
+    #shoeBox{
+        width: auto;             
+        aspect-ratio : 1/0.9;
+        margin: 0;
+        flex-grow: 1;        
+        perspective: 300px;
+        position: relative;              
+    }       
+    #shoeBox span{
+        display: inline-block;
+        position: absolute;
+        aspect-ratio: 1/1;
+        border-radius: 200px;
+        background: #ffffff22;
+        backdrop-filter: blur(4px);
+    }
+    #shoeBox span:nth-of-type(1){
+        width: 13%;        
+        top: 35%;
+        left: 8%;
+    }
+    #shoeBox span:nth-of-type(2){
+        width: 30%;
+        top: 8%;
+        left: 39%;
+        background: linear-gradient(to bottom, #1a1a1ae2, #1515158c)
+    }
+    #shoeBox span:nth-of-type(3){
+        width: 20%;
+        bottom: 8%;
+        left: 20%;
+        backdrop-filter: blur(2px);
+    }
+    .shoeCard{
+        pointer-events: none;
+        transition: opacity 0.5s, visibility 0.5s, transform 0.5s;
+        opacity: 0;
+        position: absolute;
+        visibility: hidden;
+        bottom: 0;
+        left:0;
+        transform: rotateY(90deg) scale(0.3);
+    }
+    .shoeCard.active{
+        opacity: 1;
+        visibility: visible;
+        transform: rotateY(0deg) scale(1);
+    }
+    .shoeCard img{
+        display: inline-block;
+        width: 100%;
+        height: auto;        
+        bottom:0;
+        position: relative;        
+        animation: moveShoe infinite 3s;       
+    }  
+    #previewButtons{
+        display: flex;
+        flex-flow: row nowrap;
+        gap: 80px;
+        margin: 30px auto 0 auto;        
+        justify-content: center;
+    }
+    #previewButtons div{
+        width: 50px;
+        aspect-ratio: 1/1;
+        border-radius: 50%;       
+        display: grid;
+        place-items: center;
+        background: var(--shoeColor);
+        transition: background 0.5s;
+        font-size: 30px;
+    }    
+    #previewButtons span{
+        display: inline-block;
+        margin-top: -20%;
+    }
+    @keyframes moveShoe{
+        0%{
+            animation-timing-function: ease-out;
+            transform: translateY(0%)
+        }
+        50%{
+            animation-timing-function: ease-in;
+            transform: translateY(-5%)
+        }
+        100%{
+            animation-timing-function: ease-out;
+            transform: translateY(0%) 
+        }
+    }
+    @media(min-width:600px){
+        #shoePreviewBox{
+            flex-wrap: nowrap;
+        }
+        .shoeLine.preview{
+            margin-top: 150px;
+        }
+        :root{
+            --text-margin: 50px;
+        }
+        #shoeBox{            
+            margin-left: clamp(-250px, 29vw, -150px);  
+            
+        }
+    }    
+</style>
+<body>
+    <div class="splash-screen" id="splashScreen">
+        <div class="grid-bg"></div>
+        <div class="particles" id="particles"></div>
+        
+        <div class="content">
+            <div class="message">
+                THIS PROTOTYPE IS
+            </div>
+            
+            <div class="credits">
+                <div class="credit-line">
+                    <div class="label">Represented By</div>
+                    <div class="value">Mahi Devs</div>
+                </div>
+                
+                <div class="credit-line">
+                    <div class="label">Designed By</div>
+                    <div class="value">Md Munajir</div>
+                </div>
+                
+                <div class="credit-line">
+                    <div class="label">Developed By</div>
+                    <div class="value">James Proneir</div>
+                </div>
+            </div>
+            
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <div id="homeSlide1">
+        <div id="sideStyleBar"><span><svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="135.5 361.38 1000 356.39"><path d="M245.8075 717.62406c-29.79588-1.1837-54.1734-9.3368-73.23459-24.4796-3.63775-2.8928-12.30611-11.5663-15.21427-15.2245-7.72958-9.7193-12.98467-19.1785-16.48977-29.6734-10.7857-32.3061-5.23469-74.6989 15.87753-121.2243 18.0765-39.8316 45.96932-79.3366 94.63252-134.0508 7.16836-8.0511 28.51526-31.5969 28.65302-31.5969.051 0-1.11225 2.0153-2.57652 4.4694-12.65304 21.1938-23.47957 46.158-29.37751 67.7703-9.47448 34.6785-8.33163 64.4387 3.34693 87.5151 8.05611 15.898 21.86731 29.6684 37.3979 37.2806 27.18874 13.3214 66.9948 14.4235 115.60699 3.2245 3.34694-.7755 169.19363-44.801 368.55048-97.8366 199.35686-53.0408 362.49439-96.4029 362.51989-96.3672.056.046-463.16259 198.2599-703.62654 301.0914-38.08158 16.2806-48.26521 20.3928-66.16827 26.6785-45.76525 16.0714-86.76008 23.7398-119.89779 22.4235z"/>
+</svg></span><span>STYLE TAKES OVER</span></div>
+        <div id="mainStyleBox">                   
+            <nav>
+                <a class="active">HOME</a>
+                <a onclick="changeSlide('remPage')">COLLECTION</a>
+                <a onclick="changeSlide('remPage')">ABOUT</a>
+                <a onclick="changeSlide('remPage')">CONTACT</a>
+            </nav>
+            <div id="shoePreviewBox" class="page">
+                <div id="aboutShoeBox">
+                    <h1 class="shoeLine preview">Air zoom</h1>
+                    <div class="shoeName preview">NIKE Air zoom winflo 5</div>
+                    <div id="shoePrice">$79</div>
+                    <div id="aboutShoe">Nothing as fly,  nothing as comfortable, nothing as proven – The <span class="shoeName">Nike Air Zoom Winflo 5</span> stays true to its root with the iconic waffle sole, sticked overlays and classic TCU accents</div>
+                    <div id="addCartButton" onclick="changeSlide('remPage')">ADD TO CART</div>
+                </div>
+                <div id="shoeBox">  
+                    <span></span>
+                    <span></span>
+                    <div id="falseShoeCard"></div>
+                    <div class="shoeCard">           
+                        <img src="shoe1.png">
+                    </div>
+                    <div class="shoeCard active">           
+                        <img src="shoe2.png">
+                    </div>
+                    <div class="shoeCard">           
+                        <img src="shoe3.png">
+                    </div>
+                    <div class="shoeCard">           
+                        <img src="shoe4.png">
+                    </div>
+                    <div class="shoeCard">           
+                        <img src="shoe5.png">
+                    </div>
+                    <div class="shoeCard">           
+                        <img src="shoe6.png">
+                    </div>
+                    <span></span>
+                </div>
+            </div>
+            <div id="previewButtons">
+                <div onclick="changeShoe('left')"><span>&larr;</span></div>
+                <div onclick="changeShoe('right')"><span>&rarr;</span></div>
+            </div>
+        </div>
+        <div id="remPage">
+            <h3>Jadav's l..... friend didn't design it yet 🙄</h3>
+        </div>   
+    </div>
+<script>
+let shoes = {
+    shoe1:{
+        line: "Nike Flex",
+        name: "Nike Flex Trainer",
+        color: "#2a80fc",
+        price: "$70",
+    },
+    shoe2:{
+        name: "Nike Air Zoom Winflo 5",
+        line: "Air Zoom",
+        color: "#d26835",
+        price: "$79"
+    },    
+    shoe3:{
+        name: "Nike Air force 1 '07'",
+        line: "Air force",
+        color: "#a70022",
+        price: "$81"
+    },
+    shoe4:{
+        name: "Nike React Infinity Run",
+        line: "nike react",
+        color: "#24b6da",
+        price: "$140"
+    },
+    shoe5:{
+        name: "Nike Free Trainer 5.0",
+        line: "nike free",
+        color: "#e04125",
+        price: "$80"
+    },
+    shoe6:{
+        name: "Nike Superrep go 3 Next",
+        line: "superrep",
+        color: "#b1e63a",
+        price: "$90"
+    }
+}
+let currentShoe = 1;
+
+
+const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 3 + 's';
+            particle.style.animationDuration = (Math.random() * 2 + 2) + 's';
+            particlesContainer.appendChild(particle);
+        }
+
+        // Auto-hide splash screen after 4 seconds
+        setTimeout(() => {
+            const splash = document.getElementById('splashScreen');
+            splash.classList.add('hide');
+            
+            // Remove splash screen from DOM after animation completes
+            setTimeout(() => {
+                splash.style.display = 'none';    
+                document.querySelector("#homeSlide1").classList.add("active");                                       
+            }, 1500);
+}, 4000);
+
+let currentSlide = "mainStyleBox"
+window.addEventListener("popstate",(e)=>{
+    if(currentSlide == "remPage"){
+        changeSlide(e.state.page, "skip");
+    }
+})
+
+function changeSlide(id, skip){
+    document.querySelector(`#${id}`).classList.add("active"); 
+    document.querySelector(`#${currentSlide}`).classList.remove("active"); 
+    skip ? "" : changeState(id) 
+    currentSlide = id
+}
+
+function changeState(id){
+    history.pushState({slide:id}, "", "");   
+}
+
+history.replaceState({page:'mainStyleBox'}, "", "")
+
+function changeShoe(dir){    
+    if(currentShoe == 5 && dir == "right"){
+        currentShoe = 0;
+    }else if(currentShoe == 0 && dir == "left"){
+        currentShoe = 5;
+    }else if(dir == "left"){ 
+        currentShoe--
+    }else{
+        currentShoe++
+    }    
+    let cards = document.querySelectorAll(".shoeCard");
+    Array.from(cards).forEach(el=>{
+        el.classList.remove("active");
+    });
+    cards[currentShoe].classList.add("active");
+    let name = `shoe${currentShoe + 1}`;
+    setProperties(name)
+}
+function setProperties(shoe){
+    let shoeProp = shoes[shoe];
+    let name = document.querySelectorAll(".shoeName");
+    Array.from(name).forEach(el=>{
+        el.textContent = shoeProp.name;
+    });
+    document.querySelector(".shoeLine").textContent = shoeProp.line;
+    document.querySelector("#shoePrice").textContent = shoeProp.price;  
+    document.documentElement.style.setProperty("--shoeColor", shoeProp.color);
+}
+</script>
+</body>
+</html>
