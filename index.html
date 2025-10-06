@@ -249,7 +249,7 @@
         
     #homeSlide1{
         height: 100vh;
-        max-height: 750px;     
+        max-height: 1000px;     
         width: 100vw;        
         display: flex;
         flex-flow: row nowrap;
@@ -491,7 +491,7 @@
             transform: translateY(0%) 
         }
     }
-    @media(min-width:600px){
+    @media(min-width:800px){
         #shoePreviewBox{
             flex-wrap: nowrap;
         }
@@ -502,9 +502,11 @@
             --text-margin: 50px;
         }
         #shoeBox{            
-            margin-left: clamp(-250px, 29vw, -150px);  
-            
+            margin-left: clamp(-250px, 29vw, -150px);              
         }
+         #homeSlide1{
+            max-height: 700px;
+         }
     }    
 </style>
 <body>
